@@ -8,7 +8,7 @@ node {
     }
 
   stage('Build') {
-    app = docker.build('hapi:${env.BUILD_NUMBER}')
+    app = docker.build('hapi:${env.BUILD_ID}')
   }
 
   stage('Test') {
@@ -26,7 +26,7 @@ node {
     }
     steps {
       docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-        app.push('${env.BUILD_NUMBER}')
+        app.push('${env.BUILD_ID}')
         app.push('latest')
       }
     }
