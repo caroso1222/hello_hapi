@@ -3,7 +3,11 @@
 node {
   def app
 
-  stage('Build image') {
+  stage('Clone') {
+        checkout scm
+    }
+
+  stage('Build') {
     app = docker.build('hapi:${env.BUILD_NUMBER}')
   }
 
@@ -16,7 +20,7 @@ node {
     }
   }
 
-  stage('Push image') {
+  stage('Push') {
     when {
       branch 'master'
     }
