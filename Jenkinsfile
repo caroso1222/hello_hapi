@@ -1,17 +1,30 @@
 #!/usr/bin/env groovy
 
-pipeline {
+node {
+  def app
 
-    agent {
-        dockerfile true
-    }
+  stage('Build image') {
+    app = docker.build('hapi:${env.BUILD_NUMBER}')
+  }
 
-    stages {
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                sh 'npm test'
-            }
-        }
+  stage('Test') {
+    steps {
+      app.inside {
+        echo 'Testing...'
+        sh 'npm test'
+      }
     }
+  }
+
+  stage('Push image') {
+    when {
+      branch 'master'
+    }
+    steps {
+      docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        app.push('${env.BUILD_NUMBER}')
+        app.push('latest')
+      }
+    }
+  }
 }
