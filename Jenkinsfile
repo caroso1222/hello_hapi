@@ -12,11 +12,9 @@ node {
   }
 
   stage("Test") {
-    steps {
-      app.inside {
-        echo "Testing..."
-        sh "npm test"
-      }
+    app.inside {
+      echo "Testing..."
+      sh "npm test"
     }
   }
 
@@ -24,11 +22,9 @@ node {
     when {
       branch "master"
     }
-    steps {
-      docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
-        app.push("${env.BUILD_ID}")
-        app.push("latest")
-      }
+    docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
+      app.push("${env.BUILD_ID}")
+      app.push("latest")
     }
   }
 }
