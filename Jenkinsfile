@@ -9,7 +9,7 @@ node {
 
   stage("Build") {
     echo 'Pulling...' + env.BRANCH_NAME
-    app = docker.build("hapi:${env.BUILD_ID}")
+    app = docker.build("caroso1222/hapi")
   }
 
   stage("Test") {
