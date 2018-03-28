@@ -3,31 +3,31 @@
 node {
   def app
 
-  stage('Clone') {
-        checkout scm
-    }
-
-  stage('Build') {
-    app = docker.build('hapi:${env.BUILD_ID}')
+  stage("Clone") {
+    checkout scm
   }
 
-  stage('Test') {
+  stage("Build") {
+    app = docker.build("hapi:${env.BUILD_ID}")
+  }
+
+  stage("Test") {
     steps {
       app.inside {
-        echo 'Testing...'
-        sh 'npm test'
+        echo "Testing..."
+        sh "npm test"
       }
     }
   }
 
-  stage('Push') {
+  stage("Push") {
     when {
-      branch 'master'
+      branch "master"
     }
     steps {
-      docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-        app.push('${env.BUILD_ID}')
-        app.push('latest')
+      docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
+        app.push("${env.BUILD_ID}")
+        app.push("latest")
       }
     }
   }
