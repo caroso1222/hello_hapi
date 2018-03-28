@@ -3,19 +3,10 @@
 pipeline {
 
     agent {
-        docker {
-            image 'node'
-            args '-u root'
-        }
+        dockerfile true
     }
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                sh 'npm install'
-            }
-        }
         stage('Test') {
             steps {
                 echo 'Testing...'
