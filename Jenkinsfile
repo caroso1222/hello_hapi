@@ -8,6 +8,7 @@ node {
   }
 
   stage("Build") {
+    echo 'Pulling...' + env.BRANCH_NAME
     app = docker.build("hapi:${env.BUILD_ID}")
   }
 
