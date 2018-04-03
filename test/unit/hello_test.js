@@ -8,7 +8,7 @@ lab.experiment('test greetings', () => {
 
     lab.test('greets with name ', (done) => {
 
-        Code.expect(Hello('Homer')).to.equal('Hello, Homer!');
+        Code.expect(Hello('Homer')).to.equal('Hey, Homer!!');
         done();
     });
 
