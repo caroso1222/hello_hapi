@@ -26,7 +26,7 @@ node {
   }
 
   stage("Service") {
-    sh "docker-machine ls"
+    sh "ssh root@159.65.180.234 docker info"
     // sh "eval \$(docker-machine env ubuntu1604-docker-new)"
     // sh "docker pull caroso1222/hapi:latest"
     // sh "docker run -d --name=hapi_0 -p 80:3000 caroso1222/hapi:latest"
