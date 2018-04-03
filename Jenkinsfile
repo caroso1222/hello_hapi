@@ -26,6 +26,9 @@ node {
   }
 
   stage("Deploy") {
-    sh "ssh root@159.65.180.234 \"docker pull caroso1222/hapi:latest && docker run -d --name=hapi_0 -p 80:3000 caroso1222/hapi:latest\""
+    sh "ssh root@159.65.180.234 \"docker stop hapi_0 && \
+        docker rm hapi_0 && \
+        docker pull caroso1222/hapi:latest && \
+        docker run -d --name=hapi_0 -p 80:3000 caroso1222/hapi:latest\""
   }
 }
