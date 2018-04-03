@@ -26,7 +26,7 @@ node {
   }
 
   stage("Service") {
-    sh "eval $(docker-machine env ubuntu1604-docker-new)"
+    sh "eval \$(docker-machine env ubuntu1604-docker-new)"
     sh "docker pull caroso1222/hapi:latest"
     sh "docker run -d --name=hapi_0 -p 80:3000 caroso1222/hapi:latest"
   }
